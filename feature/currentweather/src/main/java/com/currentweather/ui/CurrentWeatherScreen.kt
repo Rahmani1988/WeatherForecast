@@ -116,6 +116,7 @@ fun CurrentWeatherScreen(
         true // Permissions are granted by default on older OS versions
     }
 
+    // todo check if this logic can be in vm
     val requestNotificationPermission: () -> Unit = {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             when {
