@@ -14,6 +14,7 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,7 +38,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -308,7 +308,9 @@ fun CurrentWeatherScreen(
                         weatherData = weatherUIData,
                         forecast = result.forecast,
                         currentWeather = result.currentWeather,
-                        onNavigateToDetail = onNavigateToDetail
+                        onNavigateToDetail = onNavigateToDetail,
+                        requestNotificationPermission = requestNotificationPermission,
+                        hasNotificationPermission = hasNotificationPermission
                     )
             }
         }
@@ -392,10 +394,10 @@ private fun SuccessContent(
     currentWeather: CurrentWeather?,
     forecast: Forecast?,
     weatherData: WeatherUI,
-    modifier: Modifier = Modifier,
-    hasNotificationPermission: Boolean = false,
-    requestNotificationPermission: () -> Unit = {},
+    requestNotificationPermission: () -> Unit,
     onNavigateToDetail: (cityName: String) -> Unit,
+    hasNotificationPermission: Boolean,
+    modifier: Modifier = Modifier,
 ) {
     val color = colorResource(weatherData.textColorResource)
     Box(
@@ -418,18 +420,15 @@ private fun SuccessContent(
                     .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                if (!hasNotificationPermission) {
-                    IconButton(
-                        modifier = Modifier.align(Alignment.End),
-                        onClick = requestNotificationPermission
-                    ) {
-                        Icon(
-                            modifier = Modifier.size(32.dp),
-                            painter = painterResource(com.common.R.drawable.ic_notifications),
-                            contentDescription = null,
-                            tint = colorResource(weatherData.textColorResource)
-                        )
-                    }
+                AnimatedVisibility(!hasNotificationPermission) {
+                    Text(
+                        modifier = Modifier
+                            .padding(32.dp)
+                            .clickable { requestNotificationPermission() },
+                        text = stringResource(R.string.weather_updates),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = color
+                    )
                 }
 
                 Spacer(modifier = Modifier.height(56.dp))

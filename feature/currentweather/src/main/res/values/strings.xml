@@ -16,4 +16,5 @@
     <string name="location_permission_permanently_denied_please_enable_in_settings">Location permission permanently denied. Please enable it in app settings.</string>
     <string name="open_settings">Open Settings</string>
     <string name="today">Today</string>
+    <string name="weather_updates">Weather updates? Tap here!</string>
 </resources>
