@@ -90,6 +90,8 @@ fun CurrentWeatherScreen(
     val locationEnabled by viewModel.locationEnabled.collectAsStateWithLifecycle()
     val requestLocationPermissions by viewModel.requestLocationPermissions.collectAsStateWithLifecycle()
     val isRefreshing by viewModel.isRefreshing.collectAsStateWithLifecycle()
+    val hasNotificationPermission by viewModel.hasNotificationPermission.collectAsStateWithLifecycle()
+    val shouldLaunchNotificationRequest by viewModel.shouldLaunchNotificationRequest.collectAsStateWithLifecycle()
 
     val context = LocalContext.current
 
@@ -100,38 +102,43 @@ fun CurrentWeatherScreen(
         )
     )
 
-    val notificationPermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        Manifest.permission.POST_NOTIFICATIONS
+    val notificationPermissionState = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        rememberPermissionState(Manifest.permission.POST_NOTIFICATIONS)
     } else {
-        "" // a place holder
+        null
     }
 
-    val notificationPermissionState = rememberPermissionState(
-        permission = notificationPermission
-    )
+    val appBarColor = colorResource(id = weatherUIData.backgroundColorResource)
 
-    val hasNotificationPermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        notificationPermissionState.status.isGranted
-    } else {
-        true // Permissions are granted by default on older OS versions
-    }
-
-    // todo check if this logic can be in vm
-    val requestNotificationPermission: () -> Unit = {
+    LaunchedEffect(notificationPermissionState?.status) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            viewModel.updateNotificationPermissionStatus(
+                notificationPermissionState?.status?.isGranted == true
+            )
+        } else {
+            viewModel.updateNotificationPermissionStatus(true)
+        }
+    }
+
+    LaunchedEffect(shouldLaunchNotificationRequest) {
+        if (shouldLaunchNotificationRequest) {
             when {
-                notificationPermissionState.status.isGranted -> { /* already granted */ }
-                notificationPermissionState.status.shouldShowRationale -> {
+                notificationPermissionState?.status?.isGranted == true -> { /* already granted */
+                }
+
+                notificationPermissionState?.status?.shouldShowRationale == true -> {
+                    // TODO show custom dialog
+                    viewModel.notificationRequestHandled()
                     notificationPermissionState.launchPermissionRequest()
                 }
+
                 else -> {
-                    notificationPermissionState.launchPermissionRequest()
+                    notificationPermissionState?.launchPermissionRequest()
+                    viewModel.notificationRequestHandled()
                 }
             }
         }
     }
-
-    val appBarColor = colorResource(id = weatherUIData.backgroundColorResource)
 
     LaunchedEffect(Unit) {
         viewModel.startLocationWeatherUpdates()
@@ -310,7 +317,7 @@ fun CurrentWeatherScreen(
                         forecast = result.forecast,
                         currentWeather = result.currentWeather,
                         onNavigateToDetail = onNavigateToDetail,
-                        requestNotificationPermission = requestNotificationPermission,
+                        requestNotificationPermission = viewModel::onNotificationPermissionClicked,
                         hasNotificationPermission = hasNotificationPermission
                     )
             }

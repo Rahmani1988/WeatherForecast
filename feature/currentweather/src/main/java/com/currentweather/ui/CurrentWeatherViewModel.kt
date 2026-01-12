@@ -63,6 +63,24 @@ class CurrentWeatherViewModel @Inject constructor(
     private val _isRefreshing = MutableStateFlow(false)
     val isRefreshing = _isRefreshing.asStateFlow()
 
+    private val _hasNotificationPermission = MutableStateFlow(false)
+    val hasNotificationPermission = _hasNotificationPermission.asStateFlow()
+
+    private val _shouldLaunchNotificationRequest = MutableStateFlow(false)
+    val shouldLaunchNotificationRequest = _shouldLaunchNotificationRequest.asStateFlow()
+
+    fun onNotificationPermissionClicked() {
+        _shouldLaunchNotificationRequest.value = true
+    }
+
+    fun notificationRequestHandled() {
+        _shouldLaunchNotificationRequest.value = false
+    }
+
+    fun updateNotificationPermissionStatus(isGranted: Boolean) {
+        _hasNotificationPermission.value = isGranted
+    }
+
     fun observeSearchLocation() {
         _searchLocation
             .debounce(300)
