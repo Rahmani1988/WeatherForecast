@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.dagger.hilt.android)
 }
 
 android {
@@ -47,7 +48,6 @@ dependencies {
     implementation(projects.core.location)
     implementation(projects.core.common)
     implementation(projects.core.notification)
-    implementation(projects.core.worker)
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)

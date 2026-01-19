@@ -9,11 +9,7 @@ import javax.inject.Inject
 @HiltAndroidApp
 class WearApp : Application() {
 
-    @Inject
-    lateinit var notificationHandler: NotificationHandler
-
     override fun onCreate() {
         super.onCreate()
-        WorkInitializer.initialize(this, notificationHandler)
     }
 }

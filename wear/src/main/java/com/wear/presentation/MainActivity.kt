@@ -33,9 +33,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @Inject
-    lateinit var notificationHandler: NotificationHandler
-
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
 
@@ -45,15 +42,6 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             WearApp("Android")
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (notificationHandler.isNotificationsEnabled()) {
-            WorkInitializer.initialize(this, notificationHandler)
-        } else {
-            WorkInitializer.cancelWork(this)
         }
     }
 }
