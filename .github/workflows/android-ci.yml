@@ -38,7 +38,7 @@ jobs:
         run: ./gradlew testDebugUnitTest
 
       # ------------------------------------
-      # 2. Run UI/Instrumented Tests
+      # 2. Run UI/Instrumented Tests (only running app module and ignoring wear app)
       # ------------------------------------
       - name: Run UI Tests with Emulator
         uses: reactivecircus/android-emulator-runner@v2
@@ -48,7 +48,7 @@ jobs:
           arch: x86_64
           profile: Nexus 6
           emulator-boot-timeout: 600
-          script: ./gradlew connectedDebugAndroidTest
+          script: ./gradlew :app:connectedDebugAndroidTest
 
       - name: Upload Test Reports (optional)
         if: always()
