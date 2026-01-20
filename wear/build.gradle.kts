@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.wear"
+    namespace = "com.weatherforcast"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.wear"
+        applicationId = "com.weatherforcast"
         minSdk = 28
         targetSdk = 36
         versionCode = 1

@@ -1,10 +1,10 @@
-package com.wear.presentation.theme
+package com.weatherforcast.presentation.theme
 
 import androidx.compose.runtime.Composable
 import androidx.wear.compose.material.MaterialTheme
 
 @Composable
-fun WeatherForcastTheme(
+fun WeatherForecastTheme(
     content: @Composable () -> Unit
 ) {
     /**
