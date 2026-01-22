@@ -49,9 +49,14 @@ dependencies {
     implementation(projects.core.common)
     implementation(projects.core.notification)
 
+    // Hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+
+    // Worker
+    implementation(libs.work.manager)
     implementation(libs.hilt.work)
+    kapt(libs.hilt.work.compiler)
 
     implementation(libs.play.services.wearable)
     implementation(platform(libs.androidx.compose.bom))
