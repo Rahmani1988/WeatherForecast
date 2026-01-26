@@ -73,18 +73,22 @@ class WeatherForecastWorker @AssistedInject constructor(
         }
     }
 
-    // todo working on bridging to wear app
     private suspend fun sendWeatherToWatch(city: String, summary: String) {
         try {
-            // Create the request and immediately convert/send it in one chain
-            val request = PutDataMapRequest.create("/current_weather").run {
+            // 1. Create the DataMap
+            val putDataMapRequest = PutDataMapRequest.create("/current_weather").apply {
                 dataMap.putString("city", city)
                 dataMap.putString("summary", summary)
                 dataMap.putLong("timestamp", System.currentTimeMillis())
-                asPutDataRequest().setUrgent()
             }
 
+            // 2. Convert to PutDataRequest and set as urgent
+            val request = putDataMapRequest.asPutDataRequest()
+            request.setUrgent()
+
+            // 3. Send via DataClient
             dataClient.putDataItem(request).await()
+
             Log.d(TAG, "Successfully synced weather to Wear OS")
         } catch (e: Exception) {
             Log.e(TAG, "Failed to sync weather to Wear OS", e)
