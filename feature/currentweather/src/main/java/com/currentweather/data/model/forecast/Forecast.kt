@@ -1,8 +1,8 @@
 package com.currentweather.data.model.forecast
 
 import ForecastDTO
-import com.common.model.currentweather.Current
-import com.common.model.currentweather.Location
+import com.common.model.models.Current
+import com.common.model.models.Location
 import com.currentweather.data.model.common.toCurrentResult
 import com.currentweather.data.model.common.toLocationResult
 

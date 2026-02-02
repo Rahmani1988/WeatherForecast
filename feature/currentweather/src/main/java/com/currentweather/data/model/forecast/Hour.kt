@@ -1,6 +1,6 @@
 package com.currentweather.data.model.forecast
 
-import com.common.model.currentweather.Condition
+import com.common.model.models.Condition
 import com.currentweather.data.model.common.toCondition
 import com.network.models.reponse.forecast.HourDTO
 

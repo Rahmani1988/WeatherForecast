@@ -1,7 +1,7 @@
 package com.currentweather.data.model.currentweather
 
-import com.common.model.currentweather.Current
-import com.common.model.currentweather.Location
+import com.common.model.models.Current
+import com.common.model.models.Location
 import com.currentweather.data.model.common.toCurrentResult
 import com.currentweather.data.model.common.toLocationResult
 import com.network.models.reponse.currentweather.CurrentWeatherDTO

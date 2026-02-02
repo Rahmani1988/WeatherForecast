@@ -1,13 +1,16 @@
 package com.worker
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkerParameters
+import com.common.model.constants.WearSyncConfig
+import com.common.model.models.WeatherSyncModel
+import com.common.repository.WearSyncRepository
 import com.datastore.UserPreferenceManager
+import com.google.android.gms.wearable.DataMap
 import com.google.android.gms.wearable.PutDataMapRequest
 import com.google.android.gms.wearable.Wearable
 import com.network.ApiService
@@ -30,6 +33,7 @@ class WeatherForecastWorker @AssistedInject constructor(
     private val apiService: ApiService,
     private val userPreferenceManager: UserPreferenceManager,
     private val notificationHandler: NotificationHandler,
+    private val wearSyncRepository: WearSyncRepository,
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : CoroutineWorker(appContext, workerParams) {
 
@@ -48,8 +52,8 @@ class WeatherForecastWorker @AssistedInject constructor(
                 if (response.isSuccessful && response.body() != null) {
                     val (city, weatherSummary) = response.body()!!.toWeatherSummaryPair()
 
-                    // todo working on bridging to wear os
-                    sendWeatherToWatch(city, weatherSummary)
+                    val result = wearSyncRepository.syncWeather(city, weatherSummary)
+                    // todo check result
 
                     if (notificationHandler.isNotificationsEnabled()) {
                         notificationHandler.postWeatherForecastNotification(
@@ -70,28 +74,6 @@ class WeatherForecastWorker @AssistedInject constructor(
                 Log.e(TAG, "Error fetching weather forecast. $e")
                 Result.retry()
             }
-        }
-    }
-
-    private suspend fun sendWeatherToWatch(city: String, summary: String) {
-        try {
-            // 1. Create the DataMap
-            val putDataMapRequest = PutDataMapRequest.create("/current_weather").apply {
-                dataMap.putString("city", city)
-                dataMap.putString("summary", summary)
-                dataMap.putLong("timestamp", System.currentTimeMillis())
-            }
-
-            // 2. Convert to PutDataRequest and set as urgent
-            val request = putDataMapRequest.asPutDataRequest()
-            request.setUrgent()
-
-            // 3. Send via DataClient
-            dataClient.putDataItem(request).await()
-
-            Log.d(TAG, "Successfully synced weather to Wear OS")
-        } catch (e: Exception) {
-            Log.e(TAG, "Failed to sync weather to Wear OS", e)
         }
     }
 

@@ -1,4 +1,4 @@
-package com.common.model.currentweather
+package com.common.model.models
 
 data class Condition(
     val code: Int,
