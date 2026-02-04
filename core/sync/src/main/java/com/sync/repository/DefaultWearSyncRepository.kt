@@ -20,8 +20,7 @@ class DefaultWearSyncRepository @Inject constructor(
             dataMap.putWeatherInfo(model)
         }.asPutDataRequest()
 
-        // Marking as urgent ensures the data is synced immediately
-        // rather than waiting for a battery-optimized batch.
+        // Marking as urgent ensures the data is synced immediately, rather than waiting for a battery-optimized batch.
         request.setUrgent()
 
         dataClient.putDataItem(request).await()

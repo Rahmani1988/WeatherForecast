@@ -48,6 +48,7 @@ dependencies {
     implementation(projects.feature.forecast)
     implementation(projects.core.worker)
     implementation(projects.core.notification)
+    implementation(projects.core.sync)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
