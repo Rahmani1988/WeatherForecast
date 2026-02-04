@@ -6,13 +6,8 @@ import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkerParameters
-import com.common.model.constants.WearSyncConfig
-import com.common.model.models.WeatherSyncModel
 import com.common.repository.WearSyncRepository
 import com.datastore.UserPreferenceManager
-import com.google.android.gms.wearable.DataMap
-import com.google.android.gms.wearable.PutDataMapRequest
-import com.google.android.gms.wearable.Wearable
 import com.network.ApiService
 import com.network.models.reponse.currentweather.toWeatherSummaryPair
 import com.notification.NotificationHandler
@@ -22,7 +17,6 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 
@@ -37,8 +31,6 @@ class WeatherForecastWorker @AssistedInject constructor(
     @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : CoroutineWorker(appContext, workerParams) {
 
-    private val dataClient by lazy { Wearable.getDataClient(appContext) }
-
     override suspend fun doWork(): Result = withContext(ioDispatcher) {
         val coordinates = userPreferenceManager.userCoordinatesFlow.firstOrNull()
 
@@ -52,8 +44,13 @@ class WeatherForecastWorker @AssistedInject constructor(
                 if (response.isSuccessful && response.body() != null) {
                     val (city, weatherSummary) = response.body()!!.toWeatherSummaryPair()
 
-                    val result = wearSyncRepository.syncWeather(city, weatherSummary)
-                    // todo check result
+                    val syncResult = wearSyncRepository.syncWeather(city, weatherSummary)
+                    syncResult.onSuccess {
+                        Log.d(TAG, "Weather synced to Wear OS successfully.")
+                    }.onFailure { exception ->
+                        Log.e(TAG, "Failed to sync weather to Wear OS", exception)
+                        // Optional: return Result.retry() if you want the worker to try again later
+                    }
 
                     if (notificationHandler.isNotificationsEnabled()) {
                         notificationHandler.postWeatherForecastNotification(
