@@ -1,7 +1,9 @@
 package com.datastore.di
 
-import com.datastore.DataStoreUserPreferenceManager
-import com.datastore.UserPreferenceManager
+import com.datastore.user.DataStoreUserPreferenceManager
+import com.datastore.user.UserPreferenceManager
+import com.datastore.weather.DataStoreWeatherDataSource
+import com.datastore.weather.WeatherLocalDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -17,4 +19,10 @@ abstract class DataStoreModule {
     abstract fun bindUserPreferenceManager(
         manager: DataStoreUserPreferenceManager
     ): UserPreferenceManager
+
+    @Binds
+    @Singleton
+    abstract fun bindWeatherLocalDataSource(
+        impl: DataStoreWeatherDataSource
+    ): WeatherLocalDataSource
 }

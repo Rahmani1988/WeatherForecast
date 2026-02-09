@@ -2,7 +2,7 @@ package com.forecast.ui
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.datastore.UserPreferenceManager
+import com.datastore.user.UserPreferenceManager
 import com.notification.DEEP_LINK_LOCATION_KEY
 import com.notification.NotificationHandler
 import dagger.hilt.android.lifecycle.HiltViewModel

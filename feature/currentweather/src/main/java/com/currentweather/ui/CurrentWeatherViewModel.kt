@@ -13,7 +13,7 @@ import com.currentweather.data.model.forecast.Forecast
 import com.currentweather.data.repository.LocationRepository
 import com.currentweather.data.repository.SearchLocationRepository
 import com.currentweather.data.repository.WeatherRepository
-import com.datastore.UserPreferenceManager
+import com.datastore.user.UserPreferenceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.async

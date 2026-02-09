@@ -1,4 +1,4 @@
-package com.datastore
+package com.datastore.user
 
 import kotlinx.coroutines.flow.Flow
 

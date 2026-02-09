@@ -7,7 +7,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkerParameters
 import com.common.repository.WearSyncRepository
-import com.datastore.UserPreferenceManager
+import com.datastore.user.UserPreferenceManager
 import com.network.ApiService
 import com.network.models.reponse.currentweather.toWeatherSummaryPair
 import com.notification.NotificationHandler
