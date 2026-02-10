@@ -1,16 +1,24 @@
 package com.weatherforcast
 
 import android.util.Log
+import com.datastore.weather.WeatherLocalDataSource
 import com.google.android.gms.wearable.DataEvent
 import com.google.android.gms.wearable.DataEventBuffer
 import com.google.android.gms.wearable.DataMapItem
 import com.google.android.gms.wearable.Wearable
 import com.google.android.gms.wearable.WearableListenerService
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class WeatherDataListenerService : WearableListenerService() {
 
-    // You can inject your local Wear repository/DataStore here with Hilt
-    private val dataClient by lazy { Wearable.getDataClient(this) }
+    @Inject
+    lateinit var weatherDataSource: WeatherLocalDataSource
+
+    @Inject
+    lateinit var coroutineScope: CoroutineScope
 
     override fun onDataChanged(dataEvents: DataEventBuffer) {
         dataEvents.forEach { event ->

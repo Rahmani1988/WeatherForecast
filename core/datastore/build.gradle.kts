@@ -37,6 +37,7 @@ android {
 dependencies {
     // Projects
     implementation(projects.core.common)
+    implementation(projects.core.threading)
 
     // androidx
     implementation(libs.androidx.core.ktx)

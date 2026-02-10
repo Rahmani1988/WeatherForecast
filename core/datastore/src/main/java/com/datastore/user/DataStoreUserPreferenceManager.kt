@@ -6,9 +6,12 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.doublePreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
+import com.reza.threading.common.IoDispatcher
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -21,7 +24,8 @@ private val USER_LONGITUDE_KEY = doublePreferencesKey("user_longitude")
 
 @Singleton
 class DataStoreUserPreferenceManager @Inject constructor(
-    @ApplicationContext private val context: Context,
+    @param:ApplicationContext private val context: Context,
+    @param:IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : UserPreferenceManager {
 
     private val dataStore = context.dataStore
@@ -34,9 +38,11 @@ class DataStoreUserPreferenceManager @Inject constructor(
         }
 
     override suspend fun saveUserCoordinates(latitude: Double, longitude: Double) {
-        dataStore.edit { preferences ->
-            preferences[USER_LATITUDE_KEY] = latitude
-            preferences[USER_LONGITUDE_KEY] = longitude
+        withContext(ioDispatcher) {
+            dataStore.edit { preferences ->
+                preferences[USER_LATITUDE_KEY] = latitude
+                preferences[USER_LONGITUDE_KEY] = longitude
+            }
         }
     }
 }

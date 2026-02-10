@@ -48,6 +48,7 @@ dependencies {
     implementation(projects.core.location)
     implementation(projects.core.common)
     implementation(projects.core.notification)
+    implementation(projects.core.threading)
 
     // Hilt
     implementation(libs.hilt.android)
