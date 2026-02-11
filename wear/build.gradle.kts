@@ -54,6 +54,12 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
 
+    // For hiltViewModel()
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+
+    // compose navigation
+    implementation("androidx.wear.compose:compose-navigation:1.3.1")
+
     // Worker
     implementation(libs.work.manager)
     implementation(libs.hilt.work)
