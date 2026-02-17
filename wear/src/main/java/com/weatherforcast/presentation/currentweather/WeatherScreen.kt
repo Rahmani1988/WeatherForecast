@@ -1,6 +1,5 @@
 package com.weatherforcast.presentation.currentweather
 
-import android.text.format.DateUtils
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,7 +22,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.Vignette
 import androidx.wear.compose.material.VignettePosition
-import com.common.model.models.WeatherSyncModel
+import com.weatherforcast.data.model.WeatherModel
 
 
 @Composable
@@ -41,7 +40,6 @@ fun WeatherScreen(viewModel: WeatherViewModel = hiltViewModel()) {
                 }
             }
             is WeatherUiState.Empty -> {
-                // Tell the user why there's no data
                 StatusMessage(
                     title = "No Weather Data",
                     message = "Syncing with phone..."
@@ -88,7 +86,7 @@ private fun StatusMessage(
 
 @Composable
 private fun WeatherDisplay(
-    data: WeatherSyncModel,
+    data: WeatherModel,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -98,7 +96,6 @@ private fun WeatherDisplay(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        // City Name
         Text(
             text = data.city,
             style = MaterialTheme.typography.title2,
@@ -106,25 +103,17 @@ private fun WeatherDisplay(
             textAlign = TextAlign.Center
         )
 
-        // Weather Description
         Text(
             text = data.summary,
-            style = MaterialTheme.typography.display3, // Larger for emphasis
+            style = MaterialTheme.typography.display3,
             color = MaterialTheme.colors.primary,
             textAlign = TextAlign.Center
         )
 
         Spacer(modifier = Modifier.height(4.dp))
 
-        // Relative Timestamp (e.g., "3 min. ago") // todo move this to viewmodel
-        val timeAgo = DateUtils.getRelativeTimeSpanString(
-            data.timestamp,
-            System.currentTimeMillis(),
-            DateUtils.MINUTE_IN_MILLIS
-        )
-
         Text(
-            text = timeAgo.toString(),
+            text = data.timeAgo,
             style = MaterialTheme.typography.caption2,
             color = MaterialTheme.colors.onSurfaceVariant
         )
