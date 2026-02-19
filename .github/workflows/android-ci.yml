@@ -32,13 +32,13 @@ jobs:
         run: echo "API_KEY=${{ secrets.API_KEY }}" > local.properties
 
       # ------------------------------------
-      # 1. Run Unit Tests
+      # 1. Run Unit Tests for BOTH modules
       # ------------------------------------
-      - name: Run Unit Tests
+      - name: Run Unit Tests (Mobile & Wear)
         run: ./gradlew testDebugUnitTest
 
       # ------------------------------------
-      # 2. Run UI/Instrumented Tests (only running app module and ignoring wear app)
+      # 2. Run UI Tests (Mobile only)
       # ------------------------------------
       - name: Run UI Tests with Emulator
         uses: reactivecircus/android-emulator-runner@v2
@@ -80,23 +80,40 @@ jobs:
         run: echo "API_KEY=${{ secrets.API_KEY }}" > local.properties
 
       # ------------------------------------
-      # 3. Build Debug and Release Versions
+      # 3. Build everything (This generates APKs for both modules)
       # ------------------------------------
-      - name: Build Debug and Release APKs
+      - name: Build All Variants
         run: ./gradlew assembleDebug assembleRelease
 
       # ------------------------------------
-      # 4. Upload Build Artifacts
+      # 4. Upload Mobile Artifacts
       # ------------------------------------
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: mobile-weather-apks
+          path: app/build/outputs/apk/*/app-*.apk
 
-      - name: Upload Release Artifacts (if successful)
+      # ------------------------------------
+      # 5. Upload Wear OS Artifacts
+      # ------------------------------------
+      - name: Upload Wear OS APKs
         uses: actions/upload-artifact@v4
-        if: success()
         with:
-          name: app-release-artifacts
-          path: app/build/outputs/apk/release/*.apk # Or aab if you run 'bundleRelease'
+          name: wear-weather-apks
+          path: wear/build/outputs/apk/*/wear-*.apk
+
+      # ------------------------------------
+      # 6. Upload Release AABs (For Play Store Upload)
+      # ------------------------------------
+      - name: Build & Upload Release Bundles (AAB)
+        run: ./gradlew bundleRelease
+
+      - name: Upload Release Bundles
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-app-bundles
+          path: |
+              app/build/outputs/bundle/release/*.aab
+              wear/build/outputs/bundle/release/*.aab
+
