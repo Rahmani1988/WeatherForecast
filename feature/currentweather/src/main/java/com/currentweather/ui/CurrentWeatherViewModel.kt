@@ -196,7 +196,7 @@ class CurrentWeatherViewModel @Inject constructor(
                         val currentWeatherDeferred =
                             async { weatherRepository.fetchCurrentWeather(it) }
                         val forecastDeferred =
-                            async { weatherRepository.fetchForecast(it, 1) }
+                            async { weatherRepository.fetchForecast(it, 3) }
 
                         currentWeatherDeferred.await().getOrThrow() to forecastDeferred.await()
                             .getOrThrow()

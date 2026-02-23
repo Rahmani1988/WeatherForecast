@@ -41,7 +41,7 @@ fun NavGraphBuilder.addForecastGraph(
                     /**
                      * This destination has a deep link that enables a specific weather forecast to be
                      * opened from a notification (@see DefaultNotificationHandler for more). The location
-                     * is sent in the URI rather than being modelled in the route type because it's
+                     * is sent in the URI rather than being modeled in the route type because it's
                      * transient data (stored in SavedStateHandle) that is cleared after the user has
                      * opened the weather forecast.
                      */

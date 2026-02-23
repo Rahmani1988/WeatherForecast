@@ -16,7 +16,7 @@ interface ApiService {
     @GET("forecast.json")
     suspend fun fetchForecast(
         @Query("q") location: String,
-        @Query("days") days: Int = 1,
+        @Query("days") days: Int = 3,
         @Query("aqi") aqi: Boolean = false,
         @Query("alerts") alerts: Boolean = false
     ): Response<ForecastDTO>

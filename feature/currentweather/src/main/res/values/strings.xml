@@ -2,7 +2,7 @@
 <resources>
     <string name="location">Location: %1$s</string>
     <string name="condition">Condition: %1$s</string>
-    <string name="view_detail">View %1$s Detail</string>
+    <string name="view_detail">View %1$s forecast</string>
     <string name="no_weather_data_available">No weather data available. Please try again.</string>
     <string name="an_unknown_error_occurred">An unknown error occurred.</string>
     <string name="error">Error: %1$s</string>

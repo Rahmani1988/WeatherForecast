@@ -504,17 +504,16 @@ private fun SuccessContent(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // todo navigate to detail
-                /*weather.location.name.let { cityName ->
+                weather.location.name.let { cityName ->
                     Button(
                         onClick = { onNavigateToDetail(cityName) },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
                     ) {
                         Text(
                             text = stringResource(R.string.view_detail, cityName)
                         )
                     }
-                }*/
+                }
             }
         } ?: run {
             Box(
