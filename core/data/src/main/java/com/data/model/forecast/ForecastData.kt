@@ -1,4 +1,4 @@
-package com.currentweather.data.model.forecast
+package com.data.model.forecast
 
 import com.network.models.reponse.forecast.ForecastDataDTO
 

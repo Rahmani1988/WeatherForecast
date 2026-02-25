@@ -8,11 +8,11 @@ import androidx.lifecycle.viewModelScope
 import com.common.R
 import com.common.model.ErrorType
 import com.common.model.error.RepositoryError
-import com.currentweather.data.model.currentweather.CurrentWeather
-import com.currentweather.data.model.forecast.Forecast
 import com.currentweather.data.repository.LocationRepository
 import com.currentweather.data.repository.SearchLocationRepository
-import com.currentweather.data.repository.WeatherRepository
+import com.data.model.current.CurrentWeather
+import com.data.model.forecast.Forecast
+import com.data.repository.WeatherRepository
 import com.datastore.user.UserPreferenceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview

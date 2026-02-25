@@ -64,10 +64,10 @@ import coil.compose.AsyncImage
 import com.common.model.ErrorType
 import com.common.model.extension.toFormattedTime
 import com.currentweather.R
-import com.currentweather.data.model.currentweather.CurrentWeather
-import com.currentweather.data.model.forecast.Forecast
 import com.currentweather.ui.component.ConnectedWavyLines
 import com.currentweather.ui.component.CustomSearchBar
+import com.data.model.current.CurrentWeather
+import com.data.model.forecast.Forecast
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberMultiplePermissionsState

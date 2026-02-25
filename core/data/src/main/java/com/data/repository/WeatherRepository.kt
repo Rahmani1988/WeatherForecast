@@ -1,7 +1,7 @@
-package com.currentweather.data.repository
+package com.data.repository
 
-import com.currentweather.data.model.currentweather.CurrentWeather
-import com.currentweather.data.model.forecast.Forecast
+import com.data.model.current.CurrentWeather
+import com.data.model.forecast.Forecast
 
 /**
  * Repository interface for fetching forecast data.

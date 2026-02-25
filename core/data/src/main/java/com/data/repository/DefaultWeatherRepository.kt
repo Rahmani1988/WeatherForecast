@@ -1,15 +1,14 @@
-package com.currentweather.data.repository
+package com.data.repository
 
 import com.common.model.error.RepositoryError
-import com.currentweather.data.model.currentweather.CurrentWeather
-import com.currentweather.data.model.currentweather.toCurrentWeatherResult
-import com.currentweather.data.model.forecast.Forecast
-import com.currentweather.data.model.forecast.toForecastResult
+import com.data.model.current.CurrentWeather
+import com.data.model.current.toCurrentWeatherResult
+import com.data.model.forecast.Forecast
+import com.data.model.forecast.toForecastResult
 import com.network.ApiService
 import com.reza.threading.common.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import retrofit2.Response
 import javax.inject.Inject
 
 class DefaultWeatherRepository @Inject constructor(

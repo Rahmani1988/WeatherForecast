@@ -1,7 +1,6 @@
-package com.currentweather.data.model.forecast
+package com.data.model.forecast
 
 import com.common.model.models.Condition
-import com.currentweather.data.model.common.toCondition
 import com.network.models.reponse.forecast.DayDTO
 
 data class Day(
