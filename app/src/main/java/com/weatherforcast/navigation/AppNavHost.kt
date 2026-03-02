@@ -40,9 +40,11 @@ fun AppNavHost(
             onNavigateOut = { callback ->
                 when (callback) {
                     is ForecastNavCallback.NavigateBackToForecastHome -> {
-                        navController.navigate(CURRENT_WEATHER_GRAPH_ROUTE) {
-                            /*popUpTo(CURRENT_WEATHER_GRAPH_ROUTE) { inclusive = true }*/
-                            launchSingleTop = true
+                        if (!navController.popBackStack()) {
+                            // Fallback: If for some reason there's no backstack, then navigate
+                            navController.navigate(CURRENT_WEATHER_GRAPH_ROUTE) {
+                                popUpTo(CURRENT_WEATHER_GRAPH_ROUTE) { inclusive = true }
+                            }
                         }
                     }
                 }

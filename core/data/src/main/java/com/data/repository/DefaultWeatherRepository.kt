@@ -27,7 +27,7 @@ class DefaultWeatherRepository @Inject constructor(
     private val currentMutex = Mutex()
     private val currentWeatherCache = mutableMapOf<String, CachedEntry<CurrentWeather>>()
 
-    // Cache and Mutex for Forecast (Unique to this resource)
+    // Cache and Mutex for Forecast
     private val forecastMutex = Mutex()
     private val forecastCache = mutableMapOf<String, CachedEntry<Forecast>>()
 
