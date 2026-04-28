@@ -1,4 +1,4 @@
-package com.weatherforcast.data.model
+package com.reza.weatherforcast.data.model
 
 data class WeatherModel(
     val city: String,

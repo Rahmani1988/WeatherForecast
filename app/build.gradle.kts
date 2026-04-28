@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.weatherforcast"
+    namespace = "com.reza.weatherforcast"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.weatherforcast"
+        applicationId = "com.reza.weatherforcast"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

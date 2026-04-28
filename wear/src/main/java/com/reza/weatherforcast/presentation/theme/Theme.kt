@@ -1,4 +1,4 @@
-package com.weatherforcast.presentation.theme
+package com.reza.weatherforcast.presentation.theme
 
 import androidx.compose.runtime.Composable
 import androidx.wear.compose.material.MaterialTheme

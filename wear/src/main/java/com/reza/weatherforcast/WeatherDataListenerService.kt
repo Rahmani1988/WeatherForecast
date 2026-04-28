@@ -1,4 +1,4 @@
-package com.weatherforcast
+package com.reza.weatherforcast
 
 import android.util.Log
 import com.common.model.constants.WearSyncConfig

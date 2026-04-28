@@ -1,4 +1,4 @@
-package com.weatherforcast
+package com.reza.weatherforcast
 
 import android.os.Bundle
 import android.util.Log
@@ -6,8 +6,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.notification.NotificationHandler
-import com.weatherforcast.navigation.AppNavHost
-import com.weatherforcast.ui.theme.WeatherForcastTheme
+import com.reza.weatherforcast.navigation.AppNavHost
+import com.reza.weatherforcast.ui.theme.WeatherForcastTheme
 import com.worker.initializers.WorkInitializer
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

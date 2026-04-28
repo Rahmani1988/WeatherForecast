@@ -1,4 +1,4 @@
-package com.weatherforcast.presentation.currentweather
+package com.reza.weatherforcast.presentation.currentweather
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,7 +22,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.Vignette
 import androidx.wear.compose.material.VignettePosition
-import com.weatherforcast.data.model.WeatherModel
+import com.reza.weatherforcast.data.model.WeatherModel
 
 
 @Composable

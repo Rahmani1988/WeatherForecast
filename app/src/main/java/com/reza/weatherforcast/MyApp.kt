@@ -1,4 +1,4 @@
-package com.weatherforcast
+package com.reza.weatherforcast
 
 import android.app.Application
 import com.notification.NotificationHandler
