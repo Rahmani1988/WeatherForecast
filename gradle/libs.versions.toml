@@ -30,6 +30,7 @@ composeMaterial = "1.2.1"
 composeFoundation = "1.2.1"
 wearToolingPreview = "1.0.0"
 coreSplashscreen = "1.0.1"
+ksp = "2.0.21-1.0.28"
 
 [libraries]
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
@@ -63,7 +64,6 @@ hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt"
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp-logging-interceptor" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
-androidx-hilt-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "androidxHilt" }
 work-manager = { module = "androidx.work:work-runtime-ktx", version.ref = "workManager" }
 hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hiltWorker" }
 hilt-work-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltWorker" }
@@ -82,4 +82,4 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt"}
+google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

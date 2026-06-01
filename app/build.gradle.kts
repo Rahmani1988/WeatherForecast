@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.dagger.hilt.android)
-    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.google.devtools.ksp)
 }
 
 android {
@@ -62,7 +62,7 @@ dependencies {
 
     // di
     implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
 
     // AndroidX Navigation for Compose
     implementation(libs.androidx.navigation.compose)
@@ -74,7 +74,6 @@ dependencies {
     // WorkManager
     implementation(libs.work.manager)
     implementation(libs.hilt.work)
-    kapt(libs.hilt.work.compiler)
 
     // Wearable
     implementation(libs.play.services.wearable)
@@ -86,9 +85,4 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-}
-
-// Allow references to generated code
-kapt {
-    correctErrorTypes = true
 }
